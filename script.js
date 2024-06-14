@@ -5,7 +5,7 @@ const game = (function() {
         row2: [0, 1, 2],
         row3: [0, 1, 2]
     };
-    
+
     function getScore() {
         return score;
     };
@@ -15,11 +15,15 @@ const game = (function() {
         return score;
     };
 
+    function showBoard() {
+        console.table(board)
+    }
+
     function playRound(player, row, index) {
         if(isIndexAvailable(index) === true) {
             if(board[`${row}`][index] < 2) {
                 board[`${row}`][index] = player.marker
-                console.table(board)
+                showBoard()
             } else {
                 console.log('Posição indisponível.')
             }
@@ -28,7 +32,7 @@ const game = (function() {
         }
     };
 
-    return { getScore, updateScore, playRound };
+    return { getScore, updateScore, showBoard, playRound };
 })();
 
 function createPlayer(name, marker) {
@@ -46,7 +50,6 @@ function createPlayer(name, marker) {
             return score;
         }
     };
-
 };
 
 function isIndexAvailable(i) {
