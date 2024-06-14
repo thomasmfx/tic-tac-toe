@@ -1,10 +1,15 @@
-const game = (function() {
-    let score = 0;
+const gameBoard = (function() {
     let board = {
         row1: [0, 1, 2],
         row2: [0, 1, 2],
         row3: [0, 1, 2]
     };
+
+    return { board }
+})();
+
+const game = (function() {
+    let score = 0;
 
     function getScore() {
         return score;
@@ -16,14 +21,14 @@ const game = (function() {
     };
 
     function showBoard() {
-        console.table(board)
-    }
+        console.table(gameBoard.board)
+    };
 
     function playRound(player, row, index) {
         if(isIndexAvailable(index) === true) {
-            if(board[`${row}`][index] < 2) {
-                board[`${row}`][index] = player.marker
-                showBoard()
+            if(gameBoard.board[`${row}`][index] < 2) {
+                gameBoard.board[`${row}`][index] = player.marker;
+                showBoard();
             } else {
                 console.log('Posição indisponível.')
             }
@@ -34,6 +39,10 @@ const game = (function() {
 
     return { getScore, updateScore, showBoard, playRound };
 })();
+
+function isIndexAvailable(i) {
+    return i >= 0 && i <= 2 ? true : false
+};
 
 function createPlayer(name, marker) {
     let score = 0;
@@ -50,8 +59,4 @@ function createPlayer(name, marker) {
             return score;
         }
     };
-};
-
-function isIndexAvailable(i) {
-    return i >= 0 && i <= 2 ? true : false
 };
