@@ -19,6 +19,10 @@ const game = (function() {
         console.table(gameBoard.board);
     };
 
+    function isIndexAvailable(i) {
+        return i >= 0 && i <= 2 ? true : false
+    };
+
     function isPlayerTurn(player) {
         return lastTurn === player ? false : true;
     };
@@ -51,16 +55,12 @@ const game = (function() {
     return { 
         getScore, 
         showBoard,
+        isIndexAvailable,
         isPlayerTurn, 
         reset,
-        playRound, 
-        lastTurn
+        playRound
     };
 })();
-
-function isIndexAvailable(i) {
-    return i >= 0 && i <= 2 ? true : false
-};
 
 function createPlayer(name, marker) {
     let score = 0;
