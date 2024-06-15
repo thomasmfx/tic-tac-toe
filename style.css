@@ -48,8 +48,8 @@ main {
     width: max(100px, 600px);
     height: max(300px, 600px);
     display: grid;
-    grid-template-columns: 1fr 5% 1fr 5% 1fr;
-    grid-template-rows: 1fr 5% 1fr 5% 1fr;
+    grid-template-columns: 1fr 22px 1fr 22px 1fr;
+    grid-template-rows: 1fr 22px 1fr 22px 1fr;
 }
 
 .place {
@@ -58,6 +58,10 @@ main {
     height: 80%;
     align-self: center;
     justify-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
 }
 
