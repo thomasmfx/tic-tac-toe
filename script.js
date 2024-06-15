@@ -9,15 +9,13 @@ const gameBoard = (function() {
 })();
 
 const game = (function() {
-    let score = 0;
 
     function getScore() {
-        return score;
+        return `${player1.name}: ${player1.getScore()} | ${player2.name}: ${player2.getScore()}`;
     };
 
     function updateScore() {
         score++
-        return score;
     };
 
     function showBoard() {
@@ -53,7 +51,7 @@ function createPlayer(name, marker) {
         marker,
         score,
         updateScore() { 
-            score += 1
+            score++
             return score;
         },
         getScore() {
@@ -74,8 +72,8 @@ function checkResult(player) {
         row2[1] === row2[2]) ||
         (row3[0] === row3[1] && 
         row3[1] === row3[2])) {
-        console.log(`${player} won!`)
-        return player.updateScore()
+        console.log(`${player} won!`);
+        return player.updateScore();
     } 
     
     // Diagonal
@@ -83,28 +81,28 @@ function checkResult(player) {
         row2[1] === row3[2]) ||
         (row1[2] === row2[1] &&
         row2[1] === row3[0])) {
-        console.log(`${player} won!`)
-        return player.updateScore()
+        console.log(`${player} won!`);
+        return player.updateScore();
     } 
-    
+     
     //Columns (1-2-3)
     if(row1[0] !== 0 && row2[0] !== 0 && row3[0] !== 0) {
         if(row1[0] === row2[0] &&
             row2[0] === row3[0]) {
-            console.log(`${player} won!`)
-            return player.updateScore()
+            console.log(`${player} won!`);
+            return player.updateScore();
         };
     } else if((row1[1] !== 1 && row2[1] !== 1 && row3[1] !== 1)) {
         if((row1[1] === row2[1] &&
             row2[1] === row3[1])) {
-            console.log(`${player} won!`)
-            return player.updateScore()
+            console.log(`${player} won!`);
+            return player.updateScore();
         };
     } else if((row1[2] !== 2 && row2[1] !== 2 && row3[2] !== 2)) {
         if(row1[2] === row2[2] &&
             row2[2] === row3[2]) {
-            console.log(`${player} won!`)
-            return player.updateScore()
+            console.log(`${player} won!`);
+            return player.updateScore();
         };
     };
 };
