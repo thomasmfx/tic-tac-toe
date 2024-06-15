@@ -5,18 +5,18 @@ const gameBoard = (function() {
         row3: [0, 1, 2]
     };
 
-    return { board }
+    return { board };
 })();
 
 const game = (function() {
     let lastTurn = null;
 
     function getScore() {
-        return `${player1.name}: ${player1.getScore()} | ${player2.name}: ${player2.getScore()}`;
+        console.log(`${player1.name}: ${player1.getScore()} | ${player2.name}: ${player2.getScore()}`);
     };
     
     function showBoard() {
-        console.table(gameBoard.board)
+        console.table(gameBoard.board);
     };
 
     function isPlayerTurn(player) {
@@ -28,7 +28,7 @@ const game = (function() {
             row1: [0, 1, 2],
             row2: [0, 1, 2],
             row3: [0, 1, 2]
-        }
+        };
     };
 
     function playRound(player, row, index, enemy) {
@@ -37,13 +37,14 @@ const game = (function() {
             if(isPlayerTurn(player) || lastTurn === null) {
                 gameBoard.board[`${row}`][index] = player.marker;
                 showBoard();
-                console.log(`${enemy.name}'s turn`)
-                lastTurn = player
+                checkResult(player);
+                console.log(`${enemy.name}'s turn`);
+                lastTurn = player;
             } else {
-                console.log(`It's ${enemy.name}'s turn`)
+                console.log(`It's ${enemy.name}'s turn`);
             };
         } else {
-            console.log('Posição indisponível.')
+            console.log('Posição indisponível.');
         };
     };
 
@@ -58,7 +59,7 @@ const game = (function() {
 })();
 
 function isIndexAvailable(i) {
-    return i >= 0 && i <= 2 ? true : false;
+    return i >= 0 && i <= 2 ? true : false
 };
 
 function createPlayer(name, marker) {
@@ -91,7 +92,7 @@ function checkResult(player) {
         (row3[0] === row3[1] && 
         row3[1] === row3[2])) {
         console.log(`${player.name} won!`);
-        return player.updateScore();
+        return player.updateScore(), game.reset(), game.getScore();
     } 
     
     // Diagonal
@@ -100,7 +101,7 @@ function checkResult(player) {
         (row1[2] === row2[1] &&
         row2[1] === row3[0])) {
         console.log(`${player.name} won!`);
-        return player.updateScore();
+        return player.updateScore(), game.reset(), game.getScore();
     } 
      
     //Columns
@@ -108,19 +109,19 @@ function checkResult(player) {
         if(row1[0] === row2[0] &&
             row2[0] === row3[0]) {
             console.log(`${player.name} won!`);
-            player.updateScore();
+            return player.updateScore(), game.reset(), game.getScore();
         };
     } else if((row1[1] !== 1 && row2[1] !== 1 && row3[1] !== 1)) {
         if((row1[1] === row2[1] &&
             row2[1] === row3[1])) {
             console.log(`${player.name} won!`);
-            return player.updateScore();
+            return player.updateScore(), game.reset(), game.getScore();
         };
     } else if((row1[2] !== 2 && row2[1] !== 2 && row3[2] !== 2)) {
         if(row1[2] === row2[2] &&
             row2[2] === row3[2]) {
             console.log(`${player.name} won!`);
-            return player.updateScore();
+            return player.updateScore(), game.reset(), game.getScore();
         };
     };
 };
