@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* CSS Reset */
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -30,5 +32,56 @@ input, button, textarea, select {
 /* ----------------------------------- */
 
 body {
-    background: #282C34;
+    background: #011627;
+}
+
+main {
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-board {
+    padding: 1em;
+    width: max(100px, 600px);
+    height: max(300px, 600px);
+    display: grid;
+    grid-template-columns: 1fr 5% 1fr 5% 1fr;
+    grid-template-rows: 1fr 5% 1fr 5% 1fr;
+}
+
+.place {
+    border: none;
+    width: 80%;
+    height: 80%;
+    align-self: center;
+    justify-self: center;
+    background-color: transparent;
+}
+
+.gap {
+    border-radius: 25px;
+    background-color: #fdfffc;
+}
+
+.gap#one {
+    grid-column: 2 / 3;
+    grid-row: 1 / -1;
+}
+
+.gap#two {
+    grid-column: 4 / 5;
+    grid-row: 1 / -1;
+}
+
+.gap#three {
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+}
+
+.gap#four {
+    grid-row: 4 / 5;
+    grid-column: 1 / -1;
 }
