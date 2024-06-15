@@ -125,3 +125,14 @@ function checkResult(player) {
         };
     };
 };
+
+const placeholders = document.querySelectorAll('.placeholder');
+
+placeholders.forEach(placeholder => {
+    placeholder.addEventListener("click", () => {
+        let img = placeholder.firstElementChild.src;
+        if(!img.includes('svg')) {
+            placeholder.firstElementChild.src = 'assets/x.svg'
+        }
+    })
+})
