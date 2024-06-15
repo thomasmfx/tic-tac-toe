@@ -32,18 +32,18 @@ const game = (function() {
     };
 
     function playRound(player, row, index, enemy) {
-        if(isPlayerTurn(player) || lastTurn === null) {
-            if(isIndexAvailable(index) === true &&
-            gameBoard.board[`${row}`][index] <= 2) {
+        if(isIndexAvailable(index) === true &&
+        gameBoard.board[`${row}`][index] <= 2) {
+            if(isPlayerTurn(player) || lastTurn === null) {
                 gameBoard.board[`${row}`][index] = player.marker;
                 showBoard();
+                console.log(`${enemy.name}'s turn`)
+                lastTurn = player
             } else {
-                console.log('Posição indisponível.')
+                console.log(`It's ${enemy.name}'s turn`)
             };
-            console.log(`${enemy.name}'s turn`)
-            lastTurn = player
         } else {
-            console.log(`It's ${enemy.name}'s turn`)
+            console.log('Posição indisponível.')
         };
     };
 
