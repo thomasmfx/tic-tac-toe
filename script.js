@@ -5,6 +5,17 @@ const gameBoard = (function() {
         row3: [0, 1, 2]
     };
 
+    const placeholders = document.querySelectorAll('.placeholder');
+
+    placeholders.forEach(placeholder => {
+        placeholder.addEventListener("click", () => {
+            let img = placeholder.firstElementChild.src;
+            if(!img.includes('svg')) {
+                placeholder.firstElementChild.src = 'assets/x.svg'
+            }
+        })
+    })
+
     return { board };
 })();
 
@@ -12,7 +23,7 @@ const game = (function() {
     let lastTurn = null;
 
     function getScore() {
-        console.log(`${player1.name}: ${player1.getScore()} | ${player2.name}: ${player2.getScore()}`);
+        console.log(`${players.p1.name}: ${players.p1.getScore()} | ${players.p2.name}: ${players.p2.getScore()}`);
     };
     
     function showBoard() {
@@ -109,18 +120,6 @@ function checkResult(player) {
     };
 };
 
-const placeholders = document.querySelectorAll('.placeholder');
-
-placeholders.forEach(placeholder => {
-    placeholder.addEventListener("click", () => {
-        let img = placeholder.firstElementChild.src;
-        if(!img.includes('svg')) {
-            placeholder.firstElementChild.src = 'assets/x.svg'
-        }
-    })
-})
-
-
 const players = (function() {
     let p1;
     let p2;
@@ -134,9 +133,10 @@ const players = (function() {
             name,
             marker,
             score,
-            updateScore() { 
-                score++
-                return score;
+            updateScore(player) { 
+                players[player].score += 1
+                let domScore = document.querySelector(`#${player}-score`)
+                domScore.textContent = players[player].score
             },
             getScore() {
                 return score;
@@ -171,8 +171,8 @@ const players = (function() {
             p2Card.lastElementChild.remove();
             p2Card.lastElementChild.remove();
         
-            p2Card.appendChild(createElementWithId('p', 'p1-name', p2Name))
-            p2Card.appendChild(createElementWithId('p', 'p1-score', players.p2.score))
+            p2Card.appendChild(createElementWithId('p', 'p2-name', p2Name))
+            p2Card.appendChild(createElementWithId('p', 'p2-score', players.p2.score))
         } else {
             alert('Name is invalid/too long.')
         }
@@ -197,4 +197,8 @@ function createElementWithClass(el, cl, text) {
     element.classList.add(cl);
     element.textContent = text;
     return element
+};
+
+function selectElement(el) {
+    return document.querySelector(`${el}`)
 };
