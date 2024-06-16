@@ -5,26 +5,12 @@ const gameBoard = (function() {
         row3: [0, 1, 2]
     };
 
-    const placeholders = document.querySelectorAll('.placeholder');
-    placeholders.forEach(placeholder => {
-        placeholder.addEventListener("click", () => {
-            if(players.p1 !== undefined && players.p2 !== undefined) {
-                let img = placeholder.firstElementChild.src;
-                if(!img.includes('svg')) {
-                        placeholder.firstElementChild.src = 'assets/x.svg'
-                        game.playRound('p1', 'row2', 0, 'p2')
-                };
-            } else {
-                alert('Assign players')
-            };
-        });
-    });
-
     return { board };
 })();
 
 const game = (function() {
     let lastTurn = null;
+    const placeholders = document.querySelectorAll('.placeholder');
 
     function getScore() {
         console.log(`${players.p1.name}: ${players.p1.getScore()} | ${players.p2.name}: ${players.p2.getScore()}`);
@@ -50,17 +36,35 @@ const game = (function() {
         };
     };
 
-    function playRound(player, row, index, enemy) {
+    placeholders.forEach(placeholder => {
+        placeholder.addEventListener("click", () => {
+            let row = placeholder.dataset.row
+            let index = placeholder.dataset.index
+            // if(players.p1 !== undefined && players.p2 !== undefined) {
+                let img = placeholder.firstElementChild.src;
+                if(!img.includes('svg')) {
+                    game.playRound(players.p1, row, index, players.p2)
+                    placeholder.firstElementChild.src = lastTurn.domMarker
+                };
+            // } else {
+            //     alert('Assign players')
+            // };
+        });
+    });
+
+    function playRound(player1, row, index, player2) {
         if(isIndexAvailable(index) === true &&
         gameBoard.board[`${row}`][index] <= 2) {
-            if(isPlayerTurn(player) || lastTurn === null) {
-                gameBoard.board[`${row}`][index] = player.marker;
+            if(isPlayerTurn(player1) || lastTurn === null) {
+                gameBoard.board[`${row}`][index] = player1.marker;
                 showBoard();
-                checkResult(player);
-                console.log(`${enemy.name}'s turn`);
-                lastTurn = player;
+                checkResult(player1);
+                lastTurn = player1;
             } else {
-                console.log(`It's ${enemy.name}'s turn`);
+                gameBoard.board[`${row}`][index] = player2.marker;
+                showBoard();
+                checkResult(player2);
+                lastTurn = player2;
             };
         } else {
             console.log('Posição indisponível.');
@@ -130,12 +134,13 @@ const players = (function() {
     const createP1 = document.querySelector('#player1-btn');
     const createP2 = document.querySelector('#player2-btn');
     
-    function createPlayer(name, marker) {
+    function createPlayer(name, marker, domMarker) {
         let score = 0;
         
         return {
             name,
             marker,
+            domMarker,
             score,
             updateScore(player) { 
                 players[player].score += 1
@@ -153,7 +158,7 @@ const players = (function() {
         const p1Card = document.querySelector('#player1');
         const p1Name = document.querySelector('#player1-input').value;
         if(p1Name !== '' && p1Name.length <= 13) {
-            players.p1 = createPlayer(p1Name, 'X');
+            players.p1 = createPlayer(p1Name, 'X', 'assets/x.svg');
         
             p1Card.lastElementChild.remove();
             p1Card.lastElementChild.remove();
@@ -170,7 +175,7 @@ const players = (function() {
         const p2Card = document.querySelector('#player2');
         const p2Name = document.querySelector('#player2-input').value;
         if(p2Name !== '' && p2Name.length <= 13) {
-            players.p2 = createPlayer(p2Name, 'O');
+            players.p2 = createPlayer(p2Name, 'O', 'assets/circle.svg');
         
             p2Card.lastElementChild.remove();
             p2Card.lastElementChild.remove();
@@ -203,6 +208,6 @@ function createElementWithClass(el, cl, text) {
     return element
 };
 
-function selectElement(el) {
+function getElement(el) {
     return document.querySelector(`${el}`)
 };
