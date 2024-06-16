@@ -148,26 +148,34 @@ const players = (function() {
     createP1.addEventListener("click", () => {
         const p1Card = document.querySelector('#player1');
         const p1Name = document.querySelector('#player1-input').value;
-        players.p1 = createPlayer(p1Name, 'X');
-    
-        p1Card.lastElementChild.remove();
-        p1Card.lastElementChild.remove();
-    
-        p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name))
-        p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score))
+        if(p1Name !== '' && p1Name.length <= 13) {
+            players.p1 = createPlayer(p1Name, 'X');
+        
+            p1Card.lastElementChild.remove();
+            p1Card.lastElementChild.remove();
+        
+            p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name))
+            p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score))
+        } else {
+            alert('Name is invalid/too long.')
+        }
     });
 
     // Player 2
     createP2.addEventListener("click", () => {
         const p2Card = document.querySelector('#player2');
         const p2Name = document.querySelector('#player2-input').value;
-        players.p2 = createPlayer(p2Name, 'O');
-    
-        p2Card.lastElementChild.remove();
-        p2Card.lastElementChild.remove();
-    
-        p2Card.appendChild(createElementWithId('p', 'p1-name', p2Name))
-        p2Card.appendChild(createElementWithId('p', 'p1-score', players.p2.score))
+        if(p2Name !== '' && p2Name.length <= 13) {
+            players.p2 = createPlayer(p2Name, 'O');
+        
+            p2Card.lastElementChild.remove();
+            p2Card.lastElementChild.remove();
+        
+            p2Card.appendChild(createElementWithId('p', 'p1-name', p2Name))
+            p2Card.appendChild(createElementWithId('p', 'p1-score', players.p2.score))
+        } else {
+            alert('Name is invalid/too long.')
+        }
     });
 
     return {
