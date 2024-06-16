@@ -157,7 +157,7 @@ const players = (function() {
     createP1.addEventListener("click", () => {
         const p1Card = document.querySelector('#player1');
         const p1Name = document.querySelector('#player1-input').value;
-        if(p1Name !== '' && p1Name.length <= 13) {
+        if(p1Name !== '') {
             players.p1 = createPlayer(p1Name, 'X', 'assets/x.svg');
         
             p1Card.lastElementChild.remove();
