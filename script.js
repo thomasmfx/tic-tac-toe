@@ -6,15 +6,19 @@ const gameBoard = (function() {
     };
 
     const placeholders = document.querySelectorAll('.placeholder');
-
     placeholders.forEach(placeholder => {
         placeholder.addEventListener("click", () => {
-            let img = placeholder.firstElementChild.src;
-            if(!img.includes('svg')) {
-                placeholder.firstElementChild.src = 'assets/x.svg'
-            }
-        })
-    })
+            if(players.p1 !== undefined && players.p2 !== undefined) {
+                let img = placeholder.firstElementChild.src;
+                if(!img.includes('svg')) {
+                        placeholder.firstElementChild.src = 'assets/x.svg'
+                        game.playRound('p1', 'row2', 0, 'p2')
+                };
+            } else {
+                alert('Assign players')
+            };
+        });
+    });
 
     return { board };
 })();
