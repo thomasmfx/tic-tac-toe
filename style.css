@@ -114,6 +114,7 @@ main {
     color: #000000;
     background-color: var(--yellow);
     border-radius: 25px;
+    font-weight: 500;
 }
 
 #player2 {
@@ -128,16 +129,16 @@ main {
     border-top-left-radius: 10px;
 }
 
-#player1-name,
-#player2-name {
+#p1-name,
+#p2-name {
     text-align: center;
     font-size: 2rem;
     width: 100%;
     border-bottom: 2px solid black;
 }
 
-#player1 > #score,
-#player2 > #score {
+#p1-score,
+#p2-score {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     display: flex;
@@ -155,7 +156,6 @@ main {
 
 #player1 > button,
 #player2 > button {
-    font-weight: 500;
     border: none;
     border-radius: 5px;
     padding: 0.5em 1em;
@@ -170,4 +170,4 @@ main {
     cursor: pointer;
     filter: brightness(95%);
     transform: scale(0.98);
-}
+}   

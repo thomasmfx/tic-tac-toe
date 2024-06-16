@@ -62,23 +62,6 @@ const game = (function() {
     };
 })();
 
-function createPlayer(name, marker) {
-    let score = 0;
-    
-    return {
-        name,
-        marker,
-        score,
-        updateScore() { 
-            score++
-            return score;
-        },
-        getScore() {
-            return score;
-        }
-    };
-};
-
 function checkResult(player) {
     const row1 = gameBoard.board['row1'],
         row2 = gameBoard.board['row2'],
@@ -136,3 +119,74 @@ placeholders.forEach(placeholder => {
         }
     })
 })
+
+
+const players = (function() {
+    let p1;
+    let p2;
+    const createP1 = document.querySelector('#player1-btn');
+    const createP2 = document.querySelector('#player2-btn');
+    
+    function createPlayer(name, marker) {
+        let score = 0;
+        
+        return {
+            name,
+            marker,
+            score,
+            updateScore() { 
+                score++
+                return score;
+            },
+            getScore() {
+                return score;
+            }
+        };
+    };
+
+    // Player 1
+    createP1.addEventListener("click", () => {
+        const p1Card = document.querySelector('#player1');
+        const p1Name = document.querySelector('#player1-input').value;
+        players.p1 = createPlayer(p1Name, 'X');
+    
+        p1Card.lastElementChild.remove();
+        p1Card.lastElementChild.remove();
+    
+        p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name))
+        p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score))
+    });
+
+    // Player 2
+    createP2.addEventListener("click", () => {
+        const p2Card = document.querySelector('#player2');
+        const p2Name = document.querySelector('#player2-input').value;
+        players.p2 = createPlayer(p2Name, 'O');
+    
+        p2Card.lastElementChild.remove();
+        p2Card.lastElementChild.remove();
+    
+        p2Card.appendChild(createElementWithId('p', 'p1-name', p2Name))
+        p2Card.appendChild(createElementWithId('p', 'p1-score', players.p2.score))
+    });
+
+    return {
+        p1,
+        p2,
+        createPlayer
+    }
+})();
+
+function createElementWithId(el, id, text) {
+    let element = document.createElement(`${el}`);
+    element.id = id;
+    element.textContent = text;
+    return element
+};
+
+function createElementWithClass(el, cl, text) {
+    let element = document.createElement(`${el}`);
+    element.classList.add(cl);
+    element.textContent = text;
+    return element
+};
