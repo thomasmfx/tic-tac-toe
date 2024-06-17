@@ -57,7 +57,8 @@ const game = (function() {
                     checkResult(lastTurn);
                 };
             } else {
-                alert('Assign players');
+                const inputs = document.querySelectorAll("input")
+                inputs.forEach(input => input.style.borderColor = 'red')
             };
         });
     });
@@ -162,35 +163,31 @@ const players = (function() {
     // Player 1
     createP1.addEventListener("click", () => {
         const p1Card = document.querySelector('#player1');
-        const p1Name = document.querySelector('#player1-input').value;
-        if(p1Name !== '') {
-            players.p1 = createPlayer(p1Name, 'X', 'assets/x.svg', 'p1');
+        const p1Name = document.querySelector('#player1-input');
+        if(p1Name.value !== '') {
+            players.p1 = createPlayer(p1Name.value, 'X', 'assets/x.svg', 'p1');
         
             p1Card.lastElementChild.remove();
             p1Card.lastElementChild.remove();
         
-            p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name));
+            p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name.value));
             p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score));
-        } else {
-            alert('Invalid name.');
-        };
+        }
     });
 
     // Player 2
     createP2.addEventListener("click", () => {
         const p2Card = document.querySelector('#player2');
-        const p2Name = document.querySelector('#player2-input').value;
-        if(p2Name !== '') {
-            players.p2 = createPlayer(p2Name, 'O', 'assets/circle.svg', 'p2');
+        const p2Name = document.querySelector('#player2-input');
+        if(p2Name.value !== '') {
+            players.p2 = createPlayer(p2Name.value, 'O', 'assets/circle.svg', 'p2');
         
             p2Card.lastElementChild.remove();
             p2Card.lastElementChild.remove();
         
-            p2Card.appendChild(createElementWithId('p', 'p2-name', p2Name));
+            p2Card.appendChild(createElementWithId('p', 'p2-name', p2Name.value));
             p2Card.appendChild(createElementWithId('p', 'p2-score', players.p2.score));
-        } else {
-            alert('Invalid name.');
-        };
+        }
     });
 
     return {
