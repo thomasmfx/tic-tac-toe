@@ -111,7 +111,7 @@ function checkResult(player) {
         if(row1[0] === row2[0] &&
             row2[0] === row3[0]) {
             console.log(`${player.name} won!`);
-            return player.updateScore(), game.reset(), game.getScore();
+            return player.updateScore(player), game.reset(), game.getScore();
         };
     } else if((row1[1] !== 1 && row2[1] !== 1 && row3[1] !== 1)) {
         if((row1[1] === row2[1] &&
@@ -134,7 +134,7 @@ const players = (function() {
     const createP1 = document.querySelector('#player1-btn');
     const createP2 = document.querySelector('#player2-btn');
     
-    function createPlayer(name, marker, domMarker) {
+    function createPlayer(name, marker, domMarker, identifier) {
         let score = 0;
         
         return {
@@ -142,10 +142,11 @@ const players = (function() {
             marker,
             domMarker,
             score,
+            identifier,
             updateScore(player) { 
-                players[player].score += 1
-                let domScore = document.querySelector(`#${player}-score`)
-                domScore.textContent = players[player].score
+                player.score++;
+                let domScore = document.querySelector(`#${player.identifier}-score`);
+                return domScore.textContent = player.score;
             },
             getScore() {
                 return score;
@@ -158,7 +159,7 @@ const players = (function() {
         const p1Card = document.querySelector('#player1');
         const p1Name = document.querySelector('#player1-input').value;
         if(p1Name !== '') {
-            players.p1 = createPlayer(p1Name, 'X', 'assets/x.svg');
+            players.p1 = createPlayer(p1Name, 'X', 'assets/x.svg', 'p1');
         
             p1Card.lastElementChild.remove();
             p1Card.lastElementChild.remove();
@@ -166,7 +167,7 @@ const players = (function() {
             p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name))
             p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score))
         } else {
-            alert('Name is invalid/too long.')
+            alert('Invalid name.')
         }
     });
 
@@ -174,8 +175,8 @@ const players = (function() {
     createP2.addEventListener("click", () => {
         const p2Card = document.querySelector('#player2');
         const p2Name = document.querySelector('#player2-input').value;
-        if(p2Name !== '' && p2Name.length <= 13) {
-            players.p2 = createPlayer(p2Name, 'O', 'assets/circle.svg');
+        if(p2Name !== '') {
+            players.p2 = createPlayer(p2Name, 'O', 'assets/circle.svg', 'p2');
         
             p2Card.lastElementChild.remove();
             p2Card.lastElementChild.remove();
@@ -183,7 +184,7 @@ const players = (function() {
             p2Card.appendChild(createElementWithId('p', 'p2-name', p2Name))
             p2Card.appendChild(createElementWithId('p', 'p2-score', players.p2.score))
         } else {
-            alert('Name is invalid/too long.')
+            alert('Invalid name.')
         }
     });
 
