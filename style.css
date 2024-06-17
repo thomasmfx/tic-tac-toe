@@ -46,14 +46,18 @@ body {
 
 main {
     width: 100dvw;
-    height: 100dvh;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    margin-top: 10em;
+
+    display: flex;
+    flex-wrap: wrap;
+    
     align-content: center;
-    justify-items: center;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 #game-board {
+
     padding: 1em;
     width: max(100px, 600px);
     height: max(300px, 600px);
@@ -102,10 +106,6 @@ main {
 
 #player1,
 #player2 {
-    align-self: start;
-    margin-left: 5em;
-    margin-top: 5em;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,11 +115,6 @@ main {
     background-color: var(--yellow);
     border-radius: 25px;
     font-weight: 500;
-}
-
-#player2 {
-    margin-left: 0px;
-    margin-right: 5em;
 }
 
 #player1 > img,
@@ -168,6 +163,26 @@ main {
 #player1 > button:hover,
 #player2 > button:hover {
     cursor: pointer;
-    filter: brightness(95%);
-    transform: scale(0.98);
+    filter: brightness(90%);
 }   
+
+#controls {
+    display: flex;
+    justify-content: center;
+}
+
+#restart {
+    margin-top: 4em;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    background-color: var(--yellow);
+
+    transition: .2s ease-in-out;
+}
+
+#restart:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+}

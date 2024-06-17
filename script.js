@@ -5,6 +5,11 @@ const gameBoard = (function() {
         row3: [0, 1, 2]
     };
 
+    const restartBtn = getElement('#restart');
+    restartBtn.addEventListener("click", () => {
+        game.reset()
+    })
+
     return { board };
 })();
 
