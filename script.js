@@ -42,18 +42,18 @@ const game = (function() {
 
     placeholders.forEach(placeholder => {
         placeholder.addEventListener("click", () => {
-            let row = placeholder.dataset.row
-            let index = placeholder.dataset.index
-            // if(players.p1 !== undefined && players.p2 !== undefined) {
+            let row = placeholder.dataset.row;
+            let index = placeholder.dataset.index;
+            if(players.p1 !== undefined && players.p2 !== undefined) {
                 let img = placeholder.firstElementChild.src;
                 if(!img.includes('svg')) {
-                    game.playRound(players.p1, row, index, players.p2)
-                    placeholder.firstElementChild.src = lastTurn.domMarker
-                    checkResult(lastTurn)
+                    game.playRound(players.p1, row, index, players.p2);
+                    placeholder.firstElementChild.src = lastTurn.domMarker;
+                    checkResult(lastTurn);
                 };
-            // } else {
-            //     alert('Assign players')
-            // };
+            } else {
+                alert('Assign players');
+            };
         });
     });
 
@@ -122,7 +122,7 @@ function checkResult(player) {
             console.log(`${player.name} won!`);
             return player.updateScore(player), game.reset(), game.getScore();
         };
-    } else if((row1[2] !== 2 && row2[1] !== 2 && row3[2] !== 2)) {
+    } else if((row1[2] !== 2 && row2[2] !== 2 && row3[2] !== 2)) {
         if(row1[2] === row2[2] &&
             row2[2] === row3[2]) {
             console.log(`${player.name} won!`);
@@ -150,9 +150,6 @@ const players = (function() {
                 player.score++;
                 let domScore = document.querySelector(`#${player.identifier}-score`);
                 return domScore.textContent = player.score;
-            },
-            getScore() {
-                return score;
             }
         };
     };
@@ -167,11 +164,11 @@ const players = (function() {
             p1Card.lastElementChild.remove();
             p1Card.lastElementChild.remove();
         
-            p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name))
-            p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score))
+            p1Card.appendChild(createElementWithId('p', 'p1-name', p1Name));
+            p1Card.appendChild(createElementWithId('p', 'p1-score', players.p1.score));
         } else {
-            alert('Invalid name.')
-        }
+            alert('Invalid name.');
+        };
     });
 
     // Player 2
@@ -184,11 +181,11 @@ const players = (function() {
             p2Card.lastElementChild.remove();
             p2Card.lastElementChild.remove();
         
-            p2Card.appendChild(createElementWithId('p', 'p2-name', p2Name))
-            p2Card.appendChild(createElementWithId('p', 'p2-score', players.p2.score))
+            p2Card.appendChild(createElementWithId('p', 'p2-name', p2Name));
+            p2Card.appendChild(createElementWithId('p', 'p2-score', players.p2.score));
         } else {
-            alert('Invalid name.')
-        }
+            alert('Invalid name.');
+        };
     });
 
     return {
@@ -202,16 +199,16 @@ function createElementWithId(el, id, text) {
     let element = document.createElement(`${el}`);
     element.id = id;
     element.textContent = text;
-    return element
+    return element;
 };
 
 function createElementWithClass(el, cl, text) {
     let element = document.createElement(`${el}`);
     element.classList.add(cl);
     element.textContent = text;
-    return element
+    return element;
 };
 
 function getElement(el) {
-    return document.querySelector(`${el}`)
+    return document.querySelector(`${el}`);
 };
