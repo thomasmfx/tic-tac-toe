@@ -49,6 +49,7 @@ const game = (function() {
                 if(!img.includes('svg')) {
                     game.playRound(players.p1, row, index, players.p2)
                     placeholder.firstElementChild.src = lastTurn.domMarker
+                    checkResult(lastTurn)
                 };
             // } else {
             //     alert('Assign players')
@@ -62,12 +63,10 @@ const game = (function() {
             if(isPlayerTurn(player1) || lastTurn === null) {
                 gameBoard.board[`${row}`][index] = player1.marker;
                 showBoard();
-                checkResult(player1);
                 lastTurn = player1;
             } else {
                 gameBoard.board[`${row}`][index] = player2.marker;
                 showBoard();
-                checkResult(player2);
                 lastTurn = player2;
             };
         } else {
