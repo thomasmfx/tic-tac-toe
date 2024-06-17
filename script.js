@@ -13,7 +13,7 @@ const game = (function() {
     const placeholders = document.querySelectorAll('.placeholder');
 
     function getScore() {
-        console.log(`${players.p1.name}: ${players.p1.getScore()} | ${players.p2.name}: ${players.p2.getScore()}`);
+        console.log(`${players.p1.name}: ${players.p1.score} | ${players.p2.name}: ${players.p2.score}`);
     };
     
     function showBoard() {
@@ -21,7 +21,7 @@ const game = (function() {
     };
 
     function isIndexAvailable(i) {
-        return i >= 0 && i <= 2 ? true : false
+        return i >= 0 && i <= 2 ? true : false;
     };
 
     function isPlayerTurn(player) {
@@ -34,6 +34,10 @@ const game = (function() {
             row2: [0, 1, 2],
             row3: [0, 1, 2]
         };
+
+        placeholders.forEach(placeholder => {
+            placeholder.firstElementChild.src = '';
+        })
     };
 
     placeholders.forEach(placeholder => {
@@ -94,7 +98,7 @@ function checkResult(player) {
         (row3[0] === row3[1] && 
         row3[1] === row3[2])) {
         console.log(`${player.name} won!`);
-        return player.updateScore(), game.reset(), game.getScore();
+        return player.updateScore(player), game.reset(), game.getScore();
     } 
     
     // Diagonal
@@ -103,7 +107,7 @@ function checkResult(player) {
         (row1[2] === row2[1] &&
         row2[1] === row3[0])) {
         console.log(`${player.name} won!`);
-        return player.updateScore(), game.reset(), game.getScore();
+        return player.updateScore(player), game.reset(), game.getScore();
     } 
      
     //Columns
@@ -117,13 +121,13 @@ function checkResult(player) {
         if((row1[1] === row2[1] &&
             row2[1] === row3[1])) {
             console.log(`${player.name} won!`);
-            return player.updateScore(), game.reset(), game.getScore();
+            return player.updateScore(player), game.reset(), game.getScore();
         };
     } else if((row1[2] !== 2 && row2[1] !== 2 && row3[2] !== 2)) {
         if(row1[2] === row2[2] &&
             row2[2] === row3[2]) {
             console.log(`${player.name} won!`);
-            return player.updateScore(), game.reset(), game.getScore();
+            return player.updateScore(player), game.reset(), game.getScore();
         };
     };
 };
