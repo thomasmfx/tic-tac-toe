@@ -1,6 +1,6 @@
 # tic-tac-toe
 
-<!-- 
-Deploy: []()
-![Image preview of project]() 
--->
+
+Deploy: [thomasmfx.github.io/tic-tac-toe](https://thomasmfx.github.io/tic-tac-toe/)
+
+![Image preview of project](assets/project_preview.png) 
